@@ -1,0 +1,106 @@
+---
+import InfiniteCarousel from "./infinite-carousel.astro";
+import SkillIcon from "./skill-icon.astro";
+import { getCollection } from "astro:content";
+
+const skills = await getCollection("skills");
+---
+
+<script>
+  document.querySelectorAll(".skill-icon").forEach((el) => {
+    el.addEventListener("click", () => {
+      const skillTitle = document.querySelector(".skill-title");
+      const skillDescription = document.querySelector(".skill-description");
+      if (skillTitle && skillDescription) {
+        skillTitle.innerHTML = el.attributes["data-skill-title"].value;
+        skillTitle.attributes["href"].value =
+          el.attributes["data-skill-link"].value;
+        skillDescription.innerHTML =
+          el.attributes["data-skill-description"].value;
+      }
+    });
+  });
+</script>
+
+<section class="my-6 overflow-hidden">
+  <h2 class="my-4 text-center text-2xl font-bold">Compétences</h2>
+  <div class="relative">
+    <InfiniteCarousel
+      length={skills.filter((skill) => skill.data.type === "framework").length}
+      height="200px"
+      width="200px"
+      iterationTime="30s"
+    >
+      {
+        skills
+          .filter((skill) => skill.data.type === "framework")
+          .map((skill, index) => (
+            <div
+              class="skill-icon p-4"
+              data-skill-title={skill.data.title}
+              data-skill-description={skill.data.description}
+              data-skill-link={skill.data.link}
+            >
+              <SkillIcon skill={skill} />
+            </div>
+          ))
+      }
+    </InfiniteCarousel>
+    <InfiniteCarousel
+      length={skills.filter((skill) => skill.data.type === "language").length}
+      height="150px"
+      width="150px"
+      direction="reverse"
+      iterationTime="20s"
+    >
+      {
+        skills
+          .filter((skill) => skill.data.type === "language")
+          .map((skill, index) => (
+            <div
+              class="skill-icon p-4"
+              data-skill-title={skill.data.title}
+              data-skill-description={skill.data.description}
+              data-skill-link={skill.data.link}
+            >
+              <SkillIcon skill={skill} />
+            </div>
+          ))
+      }
+    </InfiniteCarousel>
+    <InfiniteCarousel
+      length={skills.filter((skill) => skill.data.type === "tools").length}
+      height="100px"
+      width="100px"
+      direction="normal"
+      iterationTime="10s"
+    >
+      {
+        skills
+          .filter((skill) => skill.data.type === "tools")
+          .map((skill, index) => (
+            <div
+              class="skill-icon p-4"
+              data-skill-title={skill.data.title}
+              data-skill-description={skill.data.description}
+              data-skill-link={skill.data.link}
+            >
+              <SkillIcon skill={skill} />
+            </div>
+          ))
+      }
+    </InfiniteCarousel>
+    <div
+      class="absolute pointer-events-none top-0 left-0 h-full w-[20px] sm:w-[50px] md:w-[100px] lg:w-[100px] bg-gradient-to-r from-white via-white dark:from-slate-700 to-transparent z-[1]"
+    >
+    </div>
+    <div
+      class="absolute pointer-events-none top-0 right-0 h-full w-[20px] sm:w-[50px] md:w-[100px] lg:w-[100px] bg-gradient-to-l from-white via-white dark:from-slate-700 to-transparent z-[1]"
+    >
+    </div>
+  </div>
+  <div class="my-8 flex flex-col justify-center items-center">
+    <a href="" target="_blank" class="skill-title"></a>
+    <span class="skill-description text-lg"></span>
+  </div>
+</section>
