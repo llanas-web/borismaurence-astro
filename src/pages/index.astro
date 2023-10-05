@@ -1,12 +1,10 @@
 ---
 import BaseHead from "../components/BaseHead.astro";
+import SkillsSection from "../components/skills-section.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import { getCollection } from "astro:content";
-import SkillIcon from "../components/skill-icon.astro";
-import InfiniteCarousel from "../components/infinite-carousel.astro";
 
 const projects = await getCollection("projects");
-const skills = await getCollection("skills");
 ---
 
 <!doctype html>
@@ -65,61 +63,7 @@ const skills = await getCollection("skills");
           </div>
         </div>
       </section>
-      <section class="my-6 overflow-hidden">
-        <h2 class="my-4 text-center text-2xl font-bold">Compétences</h2>
-        <InfiniteCarousel
-          length={skills.filter((skill) => skill.data.type === "framework")
-            .length}
-          height="100px"
-          width="100px"
-          iterationTime="30s"
-        >
-          {
-            skills
-              .filter((skill) => skill.data.type === "framework")
-              .map((skill, index) => (
-                <div class="p-4">
-                  <SkillIcon skill={skill} />
-                </div>
-              ))
-          }
-        </InfiniteCarousel>
-        <InfiniteCarousel
-          length={skills.filter((skill) => skill.data.type === "language")
-            .length}
-          height="100px"
-          width="100px"
-          direction="reverse"
-          iterationTime="20s"
-        >
-          {
-            skills
-              .filter((skill) => skill.data.type === "language")
-              .map((skill, index) => (
-                <div class="p-4">
-                  <SkillIcon skill={skill} />
-                </div>
-              ))
-          }
-        </InfiniteCarousel>
-        <InfiniteCarousel
-          length={skills.filter((skill) => skill.data.type === "tools").length}
-          height="100px"
-          width="100px"
-          direction="normal"
-          iterationTime="10s"
-        >
-          {
-            skills
-              .filter((skill) => skill.data.type === "tools")
-              .map((skill, index) => (
-                <div class="p-4">
-                  <SkillIcon skill={skill} />
-                </div>
-              ))
-          }
-        </InfiniteCarousel>
-      </section>
+      <SkillsSection />
     </main>
     <!-- <section class="h-screen min-h-screen snap-center flex flex-col">
         <h2 class="my-4 text-center text-2xl font-bold">Projects</h2>
