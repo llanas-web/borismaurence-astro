@@ -1,50 +1,143 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import BaseHead from "../components/BaseHead.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import { getCollection } from "astro:content";
+import SkillIcon from "../components/skill-icon.astro";
+import InfiniteCarousel from "../components/infinite-carousel.astro";
+
+const projects = await getCollection("projects");
+const skills = await getCollection("skills");
 ---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header title={SITE_TITLE} />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to
-				build a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like
-				Tailwind, React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/pages/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to <a href="https://docs.astro.build/"
-					>read the docs
-				</a> or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out <a
-					href="https://github.com/Charca/astro-blog-template"
-					>astro-blog-template
-				</a> by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+  </head>
+  <body class="bg-slate-700 text-slate-300">
+    <!-- <Header title={SITE_TITLE} /> -->
+    <main class="px-4 snap-mandatory snap-y mb-24">
+      <section
+        class="min-h-screen flex flex-col justify-center gap-4 items-center p-8 snap-center"
+      >
+        <img
+          src="/images/boris-2.png"
+          alt="Boris MAURENCE @Llanas"
+          class="rounded-full shadow-lg w-auto h-48 m-4"
+        />
+        <div class="leading-5 flex flex-col">
+          <h1 class="text-2xl font-bold">Boris MAURENCE</h1>
+          <h2 class="italic text-slate-500 mb-4">@Llanas</h2>
+          <h2 class="mb-16">Web Developpeur / Freelance</h2>
+          <div class="flex flex-row gap-4 justify-center items-center">
+            <a href="https://github.com/llanas" target="_blank">
+              <svg
+                height="28"
+                aria-hidden="true"
+                viewBox="0 0 16 16"
+                version="1.1"
+                width="28"
+                data-view-component="true"
+                class="fill-slate-300"
+              >
+                <path
+                  d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"
+                ></path>
+              </svg>
+            </a>
+            <a
+              href="https://www.linkedin.com/in/borismaurence/"
+              target="_blank"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="28"
+                height="28"
+                focusable="false"
+                class="fill-slate-300"
+              >
+                <path
+                  d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"
+                ></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </section>
+      <section class="my-6 overflow-hidden">
+        <h2 class="my-4 text-center text-2xl font-bold">Compétences</h2>
+        <InfiniteCarousel
+          length={skills.filter((skill) => skill.data.type === "framework")
+            .length}
+          height="100px"
+          width="100px"
+          iterationTime="30s"
+        >
+          {
+            skills
+              .filter((skill) => skill.data.type === "framework")
+              .map((skill, index) => (
+                <div class="p-4">
+                  <SkillIcon skill={skill} />
+                </div>
+              ))
+          }
+        </InfiniteCarousel>
+        <InfiniteCarousel
+          length={skills.filter((skill) => skill.data.type === "language")
+            .length}
+          height="100px"
+          width="100px"
+          direction="reverse"
+          iterationTime="20s"
+        >
+          {
+            skills
+              .filter((skill) => skill.data.type === "language")
+              .map((skill, index) => (
+                <div class="p-4">
+                  <SkillIcon skill={skill} />
+                </div>
+              ))
+          }
+        </InfiniteCarousel>
+        <InfiniteCarousel
+          length={skills.filter((skill) => skill.data.type === "tools").length}
+          height="100px"
+          width="100px"
+          direction="normal"
+          iterationTime="10s"
+        >
+          {
+            skills
+              .filter((skill) => skill.data.type === "tools")
+              .map((skill, index) => (
+                <div class="p-4">
+                  <SkillIcon skill={skill} />
+                </div>
+              ))
+          }
+        </InfiniteCarousel>
+      </section>
+    </main>
+    <!-- <section class="h-screen min-h-screen snap-center flex flex-col">
+        <h2 class="my-4 text-center text-2xl font-bold">Projects</h2>
+        <div class="flex-grow mb-8">
+          <LdsSwiper>
+            {
+              projects
+                .filter((project) => !project.data.isPrivate)
+                .map((project, index) => (
+                  <div class="swiper-slide">
+                    <ProjectThumbnail project={project} />
+                  </div>
+                ))
+            }
+          </LdsSwiper>
+        </div>
+      </section> -->
+
+    <!-- <Footer /> -->
+  </body>
 </html>

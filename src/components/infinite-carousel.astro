@@ -1,0 +1,63 @@
+---
+interface Props {
+  length: number;
+  width: string;
+  height: string;
+  direction?: "normal" | "reverse";
+  iterationTime: string;
+}
+
+const {
+  length,
+  width,
+  height,
+  direction = "normal",
+  iterationTime,
+} = Astro.props;
+---
+
+<div class=`infinite-carousel`>
+  <slot />
+  <slot />
+  <slot />
+</div>
+
+<style define:vars={{ length, width, height, direction, iterationTime }}>
+  .infinite-carousel {
+    translate: -100%;
+    display: flex;
+    flex-wrap: nowrap;
+    animation-name: var(--direction);
+    animation-duration: var(--iterationTime);
+    animation-timing-function: linear;
+    animation-play-state: running;
+    animation-iteration-count: infinite;
+    align-items: center;
+    width: calc(var(--length) * var(--width));
+    margin: 0 auto;
+
+    > * {
+      flex-shrink: 0;
+      width: var(--width);
+      height: var(--height);
+    }
+  }
+
+  @keyframes normal {
+    0%: {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(1 * var(--length) * var(--width)));
+    }
+  }
+
+  @keyframes reverse {
+    0%: {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(-1 * var(--length) * var(--width)));
+    }
+  }
+</style>
