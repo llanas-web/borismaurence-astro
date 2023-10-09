@@ -22,6 +22,14 @@ const {
   <slot />
 </div>
 
+<style is:inline define:vars={{ width, height }}>
+  ::slotted(*) {
+    flex-shrink: 0;
+    width: var(--width);
+    height: var(--height);
+  }
+</style>
+
 <style define:vars={{ length, width, height, direction, iterationTime }}>
   .infinite-carousel {
     translate: -100%;
@@ -42,6 +50,13 @@ const {
       height: var(--height);
     }
   }
+
+  /* .infinite-carousel  * {
+    flex-shrink: 0;
+    width: var(--width);
+    height: var(--height);
+  } */
+
   @keyframes normal {
     0%: {
       transform: translateX(0);
