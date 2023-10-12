@@ -1,10 +1,9 @@
 ---
 import BaseHead from "../components/BaseHead.astro";
-import SkillsSection from "../components/skills-section.astro";
+import ProjectsSection from "../components/sections/projects-section.astro";
+import SkillsSection from "../components/sections/skills-section.astro";
+import TimelineSection from "../components/sections/timeline-section.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
-import { getCollection } from "astro:content";
-
-const projects = await getCollection("projects");
 ---
 
 <!doctype html>
@@ -67,25 +66,11 @@ const projects = await getCollection("projects");
           </div>
         </div>
       </section>
+      <TimelineSection />
       <SkillsSection />
-    </main>
-    <!-- <section class="h-screen min-h-screen snap-center flex flex-col">
-        <h2 class="my-4 text-center text-2xl font-bold">Projects</h2>
-        <div class="flex-grow mb-8">
-          <LdsSwiper>
-            {
-              projects
-                .filter((project) => !project.data.isPrivate)
-                .map((project, index) => (
-                  <div class="swiper-slide">
-                    <ProjectThumbnail project={project} />
-                  </div>
-                ))
-            }
-          </LdsSwiper>
-        </div>
-      </section> -->
+      <!-- <ProjectsSection /> -->
 
-    <!-- <Footer /> -->
+      <!-- <Footer /> -->
+    </main>
   </body>
 </html>

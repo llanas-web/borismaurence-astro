@@ -1,0 +1,39 @@
+---
+import ProjectThumbnail from "../ProjectThumbnail.astro";
+import LdsSwiper from "../lds-swiper.astro";
+import { getCollection } from "astro:content";
+
+const projects = await getCollection("projects");
+---
+
+<script>
+    import Swiper from "swiper/bundle";
+    import "swiper/css/bundle";
+    const swiper = new Swiper(".lds-swiper", {});
+</script>
+
+<section class="h-screen min-h-screen snap-center flex flex-col">
+  <h2 class="my-4 text-center text-2xl font-bold">Projects</h2>
+  <div class="flex-grow mb-8">
+    <article class="h-full grid grid-rows-3 grid-cols-5 gap-4">
+      <div class="lds-swiper swiper row-span-3 col-span-3 m-4 relative">
+        <div class="swiper-wrapper">
+        {
+          projects
+            .filter((project) => !project.data.isPrivate)
+            .map((project, index) => (
+              <div class="swiper-slide h-full">
+                <img
+                  class={`object-cover h-full w-full rounded-lg rotate-${index}`}
+                  src={project.data.heroImage}
+                  alt={project.data.heroImage}
+                />
+              </div>
+            ))
+        }
+        </div>
+      </div>
+    </article>
+    <!-- </LdsSwiper> -->
+  </div>
+</section>

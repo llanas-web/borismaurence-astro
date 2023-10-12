@@ -1,6 +1,6 @@
 ---
-import InfiniteCarousel from "./infinite-carousel.astro";
-import SkillIcon from "./skill-icon.astro";
+import InfiniteCarousel from "../infinite-carousel.astro";
+import SkillIcon from "../skill-icon.astro";
 import { getCollection } from "astro:content";
 
 const skills = await getCollection("skills");
@@ -22,13 +22,13 @@ const skills = await getCollection("skills");
   });
 </script>
 
-<section class="my-6 overflow-hidden">
+<section class="min-h-screen my-6 overflow-hidden">
   <h2 class="my-4 text-center text-2xl font-bold">Compétences</h2>
   <div class="relative">
     <InfiniteCarousel
       length={skills.filter((skill) => skill.data.type === "framework").length}
-      height="200px"
-      width="200px"
+      height="150px"
+      width="150px"
       iterationTime="30s"
     >
       {
@@ -48,8 +48,8 @@ const skills = await getCollection("skills");
     </InfiniteCarousel>
     <InfiniteCarousel
       length={skills.filter((skill) => skill.data.type === "language").length}
-      height="150px"
-      width="150px"
+      height="120px"
+      width="120px"
       direction="reverse"
       iterationTime="20s"
     >
@@ -70,8 +70,8 @@ const skills = await getCollection("skills");
     </InfiniteCarousel>
     <InfiniteCarousel
       length={skills.filter((skill) => skill.data.type === "tools").length}
-      height="100px"
-      width="100px"
+      height="90px"
+      width="90px"
       direction="normal"
       iterationTime="10s"
     >
