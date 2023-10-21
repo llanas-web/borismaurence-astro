@@ -1,0 +1,18 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import LlanasLogo from "../components/llanas-logo.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+---
+
+<html lang="en">
+  <head>
+    <BaseHead
+      title={SITE_TITLE}
+      description={SITE_DESCRIPTION}
+      image="/images/boris-2.png"
+    />
+  </head>
+  <body class="bg-british text-slate-300">
+    <LlanasLogo />
+  </body>
+</html>
