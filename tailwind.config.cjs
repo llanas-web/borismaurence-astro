@@ -14,6 +14,16 @@ module.exports = {
       animation: {
         flow: "flow 30s linear infinite",
       },
+      dropShadow: {
+        glow: [
+          "0 0 10px rgba(255, 255, 255, 0.35)",
+          "0 0 35px rgba(255, 255, 255, 0.2)",
+        ],
+        gleen: [
+          "0 0 10px rgba(4, 120, 87, 0.35)",
+          "0 0 35px rgba(4, 120, 87, 0.2)",
+        ],
+      },
       keyframes: {
         flow: {
           "0%": {

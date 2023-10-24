@@ -1,39 +1,84 @@
 ---
-import ProjectThumbnail from "../ProjectThumbnail.astro";
-import LdsSwiper from "../lds-swiper.astro";
-import { getCollection } from "astro:content";
+import { getCollection, getEntries } from "astro:content";
+import SkillIcon from "../skill-icon.astro";
 
 const projects = await getCollection("projects");
+const populatedProjects = await Promise.all(
+  projects.map(async (project) => ({
+    ...project,
+    skills: await getEntries(project.data.skills),
+  }))
+);
 ---
 
 <script>
-    import Swiper from "swiper/bundle";
-    import "swiper/css/bundle";
-    const swiper = new Swiper(".lds-swiper", {});
+  import Swiper from "swiper/bundle";
+  import "swiper/css/bundle";
+  const swiper = new Swiper(".lds-swiper", {
+    parallax: true,
+    pagination: {
+      el: ".swiper-pagination",
+    },
+  });
 </script>
 
-<section class="h-screen min-h-screen snap-center flex flex-col">
-  <h2 class="my-4 text-center text-2xl font-bold">Projects</h2>
-  <div class="flex-grow mb-8">
-    <article class="h-full grid grid-rows-3 grid-cols-5 gap-4">
-      <div class="lds-swiper swiper row-span-3 col-span-3 m-4 relative">
-        <div class="swiper-wrapper">
-        {
-          projects
-            .filter((project) => !project.data.isPrivate)
-            .map((project, index) => (
-              <div class="swiper-slide h-full">
+<section
+  class="lds-swiper swiper w-full flex flew-col justify-center items-center h-[80vh]"
+>
+  <div class="swiper-wrapper h-4/5">
+    {
+      populatedProjects.map((project) => (
+        <>
+          <div class="swiper-slide box-border relative p-6 flex flex-col">
+            <div
+              class="absolute bg-cover h-full w-full bg-center top-0 left-0 z-0 overflow-visible p-4 opacity-25"
+              data-swiper-parallax="-200"
+            >
+              <img
+                class="min-h-full object-cover rounded-lg blur-sm"
+                src={project.data.heroImage}
+                alt=""
+              />
+            </div>
+            <div class="grid grid-cols-1 grid-rows-5 h-full">
+              <div class="row-span-3" data-swiper-parallax="-500">
                 <img
-                  class={`object-cover h-full w-full rounded-lg rotate-${index}`}
+                  class="min-w-full h-full object-cover rounded-lg drop-shadow-glow"
                   src={project.data.heroImage}
-                  alt={project.data.heroImage}
+                  alt=""
                 />
               </div>
-            ))
-        }
-        </div>
-      </div>
-    </article>
-    <!-- </LdsSwiper> -->
+              <div class="row-span-1 p-4">
+                <div
+                  class="text-xl mb-2 mt-auto"
+                  data-swiper-parallax="-100"
+                  data-swiper-parallax-duration="600"
+                >
+                  {project.data.title}
+                </div>
+                <div
+                  class="text-sm"
+                  data-swiper-parallax="-200"
+                  data-swiper-parallax-duration="600"
+                >
+                  {project.data.description}
+                </div>
+              </div>
+              <div
+                class="row-span-1 flex flex-row z-10 justify-center flex-wrap items-center"
+                data-swiper-parallax-opacity="0"
+              >
+                {project.skills.map((skill) => (
+                  <div class="w-16 h-16 p-2  drop-shadow-glow">
+                    <SkillIcon skill={skill} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </>
+      ))
+    }
   </div>
+  <div class="swiper-pagination"></div>
 </section>
